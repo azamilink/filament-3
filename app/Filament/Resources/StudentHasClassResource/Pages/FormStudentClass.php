@@ -2,17 +2,16 @@
 
 namespace App\Filament\Resources\StudentHasClassResource\Pages;
 
+use App\Filament\Resources\StudentHasClassResource;
+use App\Models\HomeRoom;
 use App\Models\Periode;
 use App\Models\Student;
-use App\Models\HomeRoom;
-use App\Models\Classroom;
 use App\Models\StudentHasClass;
-use Filament\Resources\Pages\Page;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Concerns\InteractsWithForms;
-use App\Filament\Resources\StudentHasClassResource;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Resources\Pages\Page;
 
 class FormStudentClass extends Page implements HasForms
 {
@@ -23,7 +22,9 @@ class FormStudentClass extends Page implements HasForms
     protected static string $view = 'filament.resources.student-has-class-resource.pages.form-student-class';
 
     public $students = [];
+
     public $homeroom = '';
+
     public $periode = '';
 
     public function mount(): void
@@ -49,8 +50,8 @@ class FormStudentClass extends Page implements HasForms
                     Select::make('periode')
                         ->label('Periode')
                         ->searchable()
-                        ->options(Periode::all()->pluck('name', 'id'))
-                ])->columns(3)
+                        ->options(Periode::all()->pluck('name', 'id')),
+                ])->columns(3),
         ];
     }
 
@@ -63,11 +64,12 @@ class FormStudentClass extends Page implements HasForms
                 'student_id' => $row,
                 'homeroom_id' => $this->homeroom,
                 'periode_id' => $this->periode,
-                'is_open' => 1
+                'is_open' => 1,
             ]);
         }
 
         StudentHasClass::insert($insert);
+
         return redirect()->to('admin/student-has-classes');
     }
 }

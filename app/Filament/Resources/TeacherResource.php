@@ -2,24 +2,24 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Tables;
+use App\Filament\Resources\TeacherResource\Pages;
+use App\Filament\Resources\TeacherResource\RelationManagers\ClassroomRelationManager;
 use App\Models\Teacher;
-use Filament\Infolists;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Infolists\Infolist;
-use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
-use Filament\Forms\Components\Group;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Group;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Infolists;
+use Filament\Infolists\Components\Group as ComponentsGroup;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\TextEntry;
-use App\Filament\Resources\TeacherResource\Pages;
-use Filament\Infolists\Components\Group as ComponentsGroup;
-use App\Filament\Resources\TeacherResource\RelationManagers\ClassroomRelationManager;
+use Filament\Infolists\Infolist;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 
 class TeacherResource extends Resource
 {
@@ -85,7 +85,7 @@ class TeacherResource extends Resource
                                 TextEntry::make('address'),
                             ]),
                         Infolists\Components\ImageEntry::make('profile'),
-                    ])->columns(2)
+                    ])->columns(2),
             ]);
     }
 

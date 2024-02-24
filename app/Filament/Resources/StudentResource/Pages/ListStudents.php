@@ -2,13 +2,13 @@
 
 namespace App\Filament\Resources\StudentResource\Pages;
 
-use Filament\Actions;
-use App\Models\Student;
+use App\Filament\Resources\StudentResource;
 use App\Imports\ImportStudent;
+use App\Models\Student;
+use Filament\Actions;
+use Filament\Resources\Pages\ListRecords;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Facades\Excel;
-use Filament\Resources\Pages\ListRecords;
-use App\Filament\Resources\StudentResource;
 
 class ListStudents extends ListRecords
 {

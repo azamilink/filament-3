@@ -2,18 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Tables;
+use App\Filament\Resources\StudentHasClassResource\Pages;
+use App\Models\HomeRoom;
 use App\Models\Periode;
 use App\Models\Student;
-use App\Models\HomeRoom;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
 use App\Models\StudentHasClass;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use App\Filament\Resources\StudentHasClassResource\Pages;
+use Filament\Tables\Table;
 
 class StudentHasClassResource extends Resource
 {
@@ -25,7 +25,7 @@ class StudentHasClassResource extends Resource
     {
         return $form
             ->schema([
-                Card::make()
+                Section::make()
                     ->schema([
                         Select::make('student_id')
                             ->searchable()
@@ -38,8 +38,8 @@ class StudentHasClassResource extends Resource
                         Select::make('periode_id')
                             ->label('Periode')
                             ->searchable()
-                            ->options(Periode::all()->pluck('name', 'id'))
-                    ])->columns(3)
+                            ->options(Periode::all()->pluck('name', 'id')),
+                    ])->columns(3),
             ]);
     }
 
