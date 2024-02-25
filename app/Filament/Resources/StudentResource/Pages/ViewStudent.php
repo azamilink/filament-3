@@ -8,5 +8,5 @@ use App\Filament\Resources\StudentResource;
 class ViewStudent extends ViewRecord
 {
     protected static string $resource = StudentResource::class;
-    protected static string $view = 'filament.resources.student.view';
+    // protected static string $view = 'filament.resources.student.view';
 }
