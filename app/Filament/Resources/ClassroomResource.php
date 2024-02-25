@@ -2,20 +2,22 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ClassroomResource\Pages;
-use App\Models\Classroom;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Forms\Set;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Set;
+use Filament\Forms\Form;
+use App\Models\Classroom;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use App\Filament\Resources\ClassroomResource\Pages;
 
 class ClassroomResource extends Resource
 {
     protected static ?string $model = Classroom::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-library';
+    protected static ?string $navigationGroup = 'Sumber';
+    protected static ?int $navigationSort = 32;
+    protected static bool $shouldRegisterNavigation = true;
 
     public static function form(Form $form): Form
     {

@@ -17,6 +17,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\TextEntry;
 use Illuminate\Database\Eloquent\Collection;
@@ -26,8 +27,10 @@ use App\Filament\Resources\StudentResource\Pages;
 class StudentResource extends Resource
 {
     protected static ?string $model = Student::class;
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
     protected static ?string $navigationLabel = 'Siswa';
+    protected static ?string $navigationGroup = 'Akademik';
+    protected static ?int $navigationSort = 22;
 
     public static function form(Form $form): Form
     {
@@ -67,19 +70,26 @@ class StudentResource extends Resource
                         );
                     }
                 ),
-                TextColumn::make('nis')->label('NIS'),
-                TextColumn::make('name')->label('Nama'),
-                TextColumn::make('gender')->label('Jenis Kelamin'),
-                TextColumn::make('birthday')->label('Tanggal Lahir'),
-                TextColumn::make('religion')->label('Agama'),
+                TextColumn::make('nis')->label('NIS')->searchable(),
+                TextColumn::make('name')->label('Nama')->searchable(),
+                TextColumn::make('gender')->label('Jenis Kelamin')->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('birthday')->label('Tanggal Lahir')->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('religion')->label('Agama')->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('contact')->label('Nomor HP'),
                 ImageColumn::make('profile'),
                 TextColumn::make('status')
                     ->label('Status')
-                    ->formatStateUsing(fn (string $state): string => ucwords("{$state}")),
+                    ->formatStateUsing(fn (string $state): string => ucwords("{$state}"))
             ])
             ->filters([
-                //
+                SelectFilter::make('status')
+                    ->multiple()
+                    ->options([
+                        'accept' => 'Accept',
+                        'off' => 'Off',
+                        'move' => 'Move',
+                        'grade' => 'Grade'
+                    ])
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
@@ -87,16 +97,17 @@ class StudentResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    BulkAction::make('Accept')
+                    BulkAction::make('Change Status')
                         ->icon('heroicon-m-check')
                         ->requiresConfirmation()
-                        ->action(fn (Collection $records) => $records->each->update(['status' => 'accept'])),
-                    BulkAction::make('Off')
-                        ->icon('heroicon-m-x-circle')
-                        ->requiresConfirmation()
-                        ->action(fn (Collection $records) => $records->each(function ($record) {
-                            $id = $record->id;
-                            Student::where('id', $id)->update(['status' => 'off']);
+                        ->form([
+                            Select::make('Status')
+                                ->label('Status')
+                                ->options(['accept' => 'Accept', 'off' => 'Off', 'move' => 'Move', 'grade' => 'Grade'])
+                                ->required()
+                        ])
+                        ->action(fn (Collection $records, array $data) => $records->each(function ($record) use ($data) {
+                            Student::where('id', $record->id)->update(['status' => $data['Status']]);
                         })),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
@@ -118,8 +129,8 @@ class StudentResource extends Resource
                     ->schema([
                         TextEntry::make('nis')->label('NIS'),
                         TextEntry::make('name')->label('Nama'),
-                        TextEntry::make('gender')->label('Jenis Kelamin'),
                         TextEntry::make('birthday')->label('Tanggal Lahir'),
+                        TextEntry::make('gender')->label('Jenis Kelamin'),
                         TextEntry::make('religion')->label('Agama'),
                         TextEntry::make('contact')->label('Nomor HP'),
                     ])->columns(3),

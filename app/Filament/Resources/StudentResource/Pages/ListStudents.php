@@ -2,13 +2,15 @@
 
 namespace App\Filament\Resources\StudentResource\Pages;
 
-use App\Filament\Resources\StudentResource;
-use App\Imports\ImportStudent;
-use App\Models\Student;
 use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
+use App\Models\Student;
+use App\Imports\ImportStudent;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Facades\Excel;
+use Filament\Resources\Components\Tab;
+use Filament\Resources\Pages\ListRecords;
+use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\StudentResource;
 
 class ListStudents extends ListRecords
 {
@@ -24,7 +26,6 @@ class ListStudents extends ListRecords
     public function getHeader(): ?View
     {
         $data = Actions\CreateAction::make();
-
         return view('filament.custom.upload-file', compact('data'));
     }
 
@@ -40,5 +41,20 @@ class ListStudents extends ListRecords
         //     'name' => 'anggy',
         //     'gender' => 'male',
         // ]);
+    }
+
+    public function getTabs(): array
+    {
+        return [
+            'all' => Tab::make(),
+            'accept' => Tab::make()
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'accept')),
+            'off' => Tab::make()
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'off')),
+            'move' => Tab::make()
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'move')),
+            'grade' => Tab::make()
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'grade')),
+        ];
     }
 }

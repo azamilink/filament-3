@@ -2,24 +2,25 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\StudentHasClassResource\Pages;
-use App\Models\HomeRoom;
+use Filament\Tables;
 use App\Models\Periode;
 use App\Models\Student;
-use App\Models\StudentHasClass;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
+use App\Models\HomeRoom;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use App\Models\StudentHasClass;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
+use App\Filament\Resources\StudentHasClassResource\Pages;
 
 class StudentHasClassResource extends Resource
 {
     protected static ?string $model = StudentHasClass::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-inbox-stack';
+    protected static ?string $navigationGroup = 'Akademik';
+    protected static ?int $navigationSort = 23;
 
     public static function form(Form $form): Form
     {

@@ -2,22 +2,22 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PeriodeResource\Pages;
-use App\Models\Periode;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
+use App\Models\Periode;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use App\Filament\Resources\PeriodeResource\Pages;
 
 class PeriodeResource extends Resource
 {
     protected static ?string $model = Periode::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
     protected static ?string $navigationLabel = 'Periode';
+    protected static ?string $navigationGroup = 'Pengaturan';
+    protected static ?int $navigationSort = 42;
 
     public static function form(Form $form): Form
     {

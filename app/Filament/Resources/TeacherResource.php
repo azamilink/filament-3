@@ -2,32 +2,32 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TeacherResource\Pages;
-use App\Filament\Resources\TeacherResource\RelationManagers\ClassroomRelationManager;
+use Filament\Tables;
 use App\Models\Teacher;
-use Filament\Forms\Components\Card;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Group;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
 use Filament\Infolists;
-use Filament\Infolists\Components\Group as ComponentsGroup;
-use Filament\Infolists\Components\Section;
-use Filament\Infolists\Components\TextEntry;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Columns\ImageColumn;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Group;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Forms\Components\FileUpload;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use App\Filament\Resources\TeacherResource\Pages;
+use Filament\Infolists\Components\Group as ComponentsGroup;
+use App\Filament\Resources\TeacherResource\RelationManagers\ClassroomRelationManager;
 
 class TeacherResource extends Resource
 {
     protected static ?string $model = Teacher::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
+    protected static ?string $navigationIcon = 'heroicon-o-user';
     protected static ?string $navigationLabel = 'Guru';
+    protected static ?string $navigationGroup = 'Akademik';
+    protected static ?int $navigationSort = 21;
 
     public static function form(Form $form): Form
     {
