@@ -10,6 +10,7 @@ use App\Models\Classroom;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use App\Filament\Resources\ClassroomResource\Pages;
+use App\Filament\Resources\ClassroomResource\RelationManagers\SubjectsRelationManager;
 
 class ClassroomResource extends Resource
 {
@@ -68,7 +69,7 @@ class ClassroomResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            SubjectsRelationManager::class
         ];
     }
 
